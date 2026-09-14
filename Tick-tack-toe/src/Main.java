@@ -2,6 +2,5 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
     GameManager gameManager = new GameManager();
-
-    gameManager.startGame();
+    gameManager.showMenu();
 }
