@@ -25,7 +25,7 @@ public class Screen {
 
     }
     public void askMovement(int numPlayer) {
-        System.out.println("Player's turn " + numPlayer);
+        System.out.println("Player's" + numPlayer + "turn");
     }
 
     public int askPlacementRow(){
@@ -48,5 +48,8 @@ public class Screen {
         }
 
         return col - 1;
+    }
+    public void printText(String text){
+        System.out.println(text);
     }
 }

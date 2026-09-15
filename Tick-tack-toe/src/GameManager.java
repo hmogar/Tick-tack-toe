@@ -1,13 +1,12 @@
-import java.util.Scanner;
+
 
 public class GameManager {
     Screen hud = new Screen();
     Board gameBoard = new Board();
-    Brand brandX =  Brand.X;
-    Brand brandO =  Brand.O;
 
-
+    char brandPlayer;
     int turn;
+    int playerTurn;
 
     public GameManager() {
     turn = 0;
@@ -18,7 +17,7 @@ public class GameManager {
         startGame();
     }
 
-    public void startGame(){
+    public void startGame() {
         /*
         Logica del juego
 
@@ -30,18 +29,37 @@ public class GameManager {
             Si lo esta, pido de nuevo
             Si no lo esta, lo marco
         */
-        turn += 1;
-        Brand brandPlayer;
-
-        hud.showBoard(gameBoard);
-        if ((turn % 2) != 0){
-            hud.askMovement(1);
-            brandPlayer = brandX;
-        } else{
-            brandPlayer = brandO;
-            hud.askMovement(2);
+        boolean isWinner = false;
+        int row = -1;
+        int col = -1;
+        while ((!gameBoard.isFull()) && !isWinner){
+            turn += 1;
+            playerTurn = turn % 2;
+            hud.showBoard(gameBoard);
+            if (playerTurn != 0) {
+                hud.askMovement(1);
+                brandPlayer = 'X';
+            } else {
+                brandPlayer = 'O';
+                hud.askMovement(2);
+            }
+            boolean okValue = false;
+            while (!okValue) {
+                row = hud.askPlacementRow();
+                col = hud.askPlacementCol();
+                okValue = gameBoard.setValue(row, col, brandPlayer);
+            }
+            isWinner = gameBoard.isWinner(row,col,brandPlayer);
         }
-        int row = hud.askPlacementRow();
-        int col = hud.askPlacementCol();
+        if (!isWinner){
+            hud.printText("Tie");
+        } else {
+            playerTurn = turn % 2;
+            if (playerTurn != 0) {
+                hud.printText("Player 1 is the winner");
+            } else {
+                hud.printText("Player 2 is the winner");
+            }
+        }
     }
 }
