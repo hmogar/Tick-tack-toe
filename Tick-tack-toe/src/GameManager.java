@@ -18,17 +18,7 @@ public class GameManager {
     }
 
     public void startGame() {
-        /*
-        Logica del juego
 
-        Compruebo que no hay ganador o el tablero no esta lleno
-            Avanzo el turno
-            Muestro el tablero actual
-            Pido al jugador que le toque(dependera del turno)(par o impar) que indica la fila y la columna
-            Compruebo que no este ese hueco ya seleccionado
-            Si lo esta, pido de nuevo
-            Si no lo esta, lo marco
-        */
         boolean isWinner = false;
         int row = -1;
         int col = -1;
@@ -49,7 +39,7 @@ public class GameManager {
                 col = hud.askPlacementCol();
                 okValue = gameBoard.setValue(row, col, brandPlayer);
             }
-            isWinner = gameBoard.isWinner(row,col,brandPlayer);
+            isWinner = gameBoard.isWinner();
         }
         if (!isWinner){
             hud.printText("Tie");
